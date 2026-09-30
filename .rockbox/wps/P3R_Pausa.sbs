@@ -1,0 +1,58 @@
+# Persona 3 Reload - "Menu de pausa"  (SBS: menus, navegador, ajustes)
+# Innioasis Y1 - Rockbox 240p (320x240, perfil iPod Classic / ipod6g)
+#
+%X(fondo_menu.bmp)
+%Fl(2,23-P3R-Menu.fnt)
+%Fl(3,15-P3R-Texto.fnt)
+%Fl(4,11-P3R-Mini.fnt)
+%xl(sel,sel.bmp,0,0)
+%xl(play,ico_play.bmp,0,0)
+%xl(pausa,ico_pausa.bmp,0,0)
+%xl(ffw,ico_ff.bmp,0,0)
+%xl(rew,ico_rew.bmp,0,0)
+#
+# Momento del dia al estilo P3R (a las 0:00 aparece la Hora Oscura)
+%?if(%ck,=,0)<%Vd(oscura)|%Vd(hora)>
+#
+# ---------------------------------------------------------------- fecha
+%V(4,5,74,26,2)%Vf(ffffff)
+%cm/%cd
+%V(90,3,70,17,3)%Vf(ffffff)
+%ca
+%Vl(hora,89,19,68,13,4)%Vf(3cc8ff)
+%?if(%ck,<,6)<Late Night|%?if(%ck,<,8)<Early Morning|%?if(%ck,<,12)<Morning|%?if(%ck,<,13)<Lunchtime|%?if(%ck,<,16)<Afternoon|%?if(%ck,<,18)<After School|Evening>>>>>>
+%Vl(oscura,89,19,68,13,4)%Vf(7cff6a)
+DARK HOUR
+#
+# ---------------------------------------------------------------- reloj y bateria ("HP")
+%V(196,2,116,17,3)%Vf(ffffff)
+%ar%?cc<%?St(time format)<%cH:%cM|%cl:%cM %cP>|--:-->
+%V(231,24,78,4,-)
+%bl(0,0,78,4,bat_fill.bmp)
+#
+# ---------------------------------------------------------------- titulo de la seccion
+%V(8,42,130,13,4)%Vf(9ee8ff)
+%s%?Lt<%Lt>
+#
+# ---------------------------------------------------------------- lista estilo menu de pausa
+%Vi(-,0,58,212,168,2)
+%Lb(item,212,28)
+# barra blanca inclinada del elemento seleccionado
+%Vl(item,0,0,212,28,2)
+%?Lc<%xd(sel)|>
+# texto seleccionado (azul marino, desplazado a la derecha)
+%Vl(item,15,1,190,26,2)%Vf(0a1440)
+%s%?Lc<%LT|>
+# texto normal (blanco)
+%Vl(item,6,1,200,26,2)%Vf(ffffff)
+%s%?Lc<|%LT>
+#
+# barra de desplazamiento
+%V(215,60,3,164,-)%Vf(3cc8ff)
+%?LB<%LB(0,0,3,164,vertical,noborder)|>
+#
+# ---------------------------------------------------------------- reproduciendo ahora
+%V(5,226,14,14,-)
+%?mp<|%xd(play)|%xd(pausa)|%xd(ffw)|%xd(rew)>
+%V(22,227,218,13,4)%Vf(bfe9ff)
+%s%?mp<Memento Mori|%?it<%it|%fn>%?ia< · %ia>|%?it<%it|%fn>%?ia< · %ia>|%?it<%it|%fn>|%?it<%it|%fn>>

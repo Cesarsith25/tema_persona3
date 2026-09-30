@@ -1,0 +1,68 @@
+# Persona 3 Reload - "Menu de pausa"  (WPS: pantalla de reproduccion)
+# Innioasis Y1 - Rockbox 240p (320x240, perfil iPod Classic / ipod6g)
+# HP = progreso de la cancion, SP = volumen
+#
+%wd
+%X(fondo_wps.bmp)
+%Fl(2,23-P3R-Menu.fnt)
+%Fl(3,15-P3R-Texto.fnt)
+%Fl(4,11-P3R-Mini.fnt)
+%xl(noart,sin_portada.bmp,0,0)
+%xl(play,ico_play.bmp,0,0)
+%xl(pausa,ico_pausa.bmp,0,0)
+%xl(stop,ico_stop.bmp,0,0)
+%xl(ffw,ico_ff.bmp,0,0)
+%xl(rew,ico_rew.bmp,0,0)
+%Cl(0,0,116,116,c,c)
+#
+%?if(%ck,=,0)<%Vd(oscura)|%Vd(hora)>
+#
+# ---------------------------------------------------------------- fecha
+%V(4,5,74,26,2)%Vf(ffffff)
+%cm/%cd
+%V(90,3,70,17,3)%Vf(ffffff)
+%ca
+%Vl(hora,89,19,68,13,4)%Vf(3cc8ff)
+%?if(%ck,<,6)<Late Night|%?if(%ck,<,8)<Early Morning|%?if(%ck,<,12)<Morning|%?if(%ck,<,13)<Lunchtime|%?if(%ck,<,16)<Afternoon|%?if(%ck,<,18)<After School|Evening>>>>>>
+%Vl(oscura,89,19,68,13,4)%Vf(7cff6a)
+DARK HOUR
+#
+# ---------------------------------------------------------------- reloj y bateria
+%V(196,2,116,17,3)%Vf(ffffff)
+%ar%?cc<%?St(time format)<%cH:%cM|%cl:%cM %cP>|--:-->
+%V(231,24,78,4,-)
+%bl(0,0,78,4,bat_fill.bmp)
+#
+# ---------------------------------------------------------------- portada
+%V(18,62,116,116,-)
+%?C<%Cd|%xd(noart)>
+#
+# ---------------------------------------------------------------- estado
+%V(266,45,14,14,-)
+%?mp<%xd(stop)|%xd(play)|%xd(pausa)|%xd(ffw)|%xd(rew)>
+#
+# ---------------------------------------------------------------- datos de la pista
+%V(150,67,166,26,2)%Vf(ffffff)
+%s%?it<%it|%fn>
+%V(150,98,166,17,3)%Vf(9ee8ff)
+%s%?ia<%ia|%?iA<%iA|Unknown>>
+%V(150,117,166,13,4)%Vf(7fa8e0)
+%s%?id<%id|>
+#
+# ---------------------------------------------------------------- HP: progreso
+%V(176,143,136,8,-)
+%pb(0,0,136,8,pb_fill.bmp)
+%V(176,153,136,13,4)%Vf(dff6ff)
+%al%pc%ar-%pr
+#
+# ---------------------------------------------------------------- SP: volumen
+%V(176,176,136,6,-)
+%pv(0,0,136,6,vol_fill.bmp)
+%V(176,184,136,13,4)%Vf(ff9ce0)
+%?mv<%ar%pv dB|>
+#
+# ---------------------------------------------------------------- siguiente pista
+%V(50,207,264,13,4)%Vf(dff6ff)
+%s%?It<%It%?Ia< · %Ia>|%?Fn<%Fn|->>
+%V(8,224,304,13,4)%Vf(3cc8ff)
+%al%?ps<SHUFFLE  |>%?mm<|REPEAT|REPEAT ONE|REPEAT SHUFFLE|A-B>%ar%pp / %pe
